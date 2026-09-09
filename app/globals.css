@@ -1,20 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
 :root {
-  --background: #000000;
+  --background: #050510;
   --foreground: #ffffff;
-  --primary: #38bdf8;
+  --primary: #00f0ff;
   --primary-foreground: #000000;
-  --secondary: #27272a;
+  --secondary: #ff007f;
   --secondary-foreground: #ffffff;
-  --accent: #27272a;
-  --accent-foreground: #ffffff;
-  --destructive: #ef4444;
+  --accent: #ffe600;
+  --accent-foreground: #000000;
+  --destructive: #ff3366;
   --destructive-foreground: #ffffff;
-  --ring: #38bdf8;
-  --border: #3f3f46;
-  --input: #3f3f46;
+  --ring: #00f0ff;
+  --border: #2a2b4a;
+  --input: #1a1b35;
 }
 
 @theme inline {
@@ -31,53 +32,131 @@
   --color-ring: var(--ring);
   --color-border: var(--border);
   --color-input: var(--input);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @layer utilities {
+  .font-pixel {
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+  }
+  .font-vt323 {
+    font-family: 'VT323', monospace;
+  }
+  .font-silkscreen {
+    font-family: 'Silkscreen', cursive, sans-serif;
+  }
   .font-mario {
     font-family: var(--font-mario), sans-serif;
   }
   .font-steve {
     font-family: var(--font-steve), sans-serif;
   }
+  .font-pac {
+    font-family: var(--font-pac), monospace;
+  }
+
+  /* Neon text shadows */
+  .neon-cyan {
+    text-shadow: 0 0 5px #00f0ff, 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 40px #00f0ff;
+  }
+  .neon-pink {
+    text-shadow: 0 0 5px #ff007f, 0 0 10px #ff007f, 0 0 20px #ff007f, 0 0 40px #ff007f;
+  }
+  .neon-green {
+    text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14;
+  }
+  .neon-yellow {
+    text-shadow: 0 0 5px #ffe600, 0 0 10px #ffe600, 0 0 20px #ffe600, 0 0 40px #ffe600;
+  }
+
+  /* Pixel box borders */
+  .pixel-box {
+    box-shadow:
+      0 -4px 0 0 #000,
+      0 4px 0 0 #000,
+      -4px 0 0 0 #000,
+      4px 0 0 0 #000;
+  }
+  .pixel-box-cyan {
+    box-shadow:
+      0 -4px 0 0 #00f0ff,
+      0 4px 0 0 #00f0ff,
+      -4px 0 0 0 #00f0ff,
+      4px 0 0 0 #00f0ff,
+      0 0 15px rgba(0, 240, 255, 0.4);
+  }
+  .pixel-box-pink {
+    box-shadow:
+      0 -4px 0 0 #ff007f,
+      0 4px 0 0 #ff007f,
+      -4px 0 0 0 #ff007f,
+      4px 0 0 0 #ff007f,
+      0 0 15px rgba(255, 0, 127, 0.4);
+  }
+
+  /* CRT & Scanline effects */
+  .crt-scanlines {
+    background: linear-gradient(
+      rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.4) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+  }
+
+  .crt-flicker {
+    animation: crtFlicker 0.15s infinite;
+  }
+
   .animate-retro-float {
-    animation: retroFloat 2s ease-in-out infinite;
+    animation: retroFloat 3s ease-in-out infinite;
+  }
+
+  .animate-pacman-chomp {
+    animation: pacmanChomp 0.4s infinite alternate;
+  }
+
+  .animate-pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
   }
 }
 
 @keyframes retroFloat {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  50% { transform: translateY(-10px); }
 }
 
-
-@keyframes laneScrollLeft {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.8; filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.6)); }
+  50% { opacity: 1; filter: drop-shadow(0 0 20px rgba(0, 240, 255, 1)); }
 }
 
-@keyframes laneScrollRight {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
+@keyframes crtFlicker {
+  0% { opacity: 0.97; }
+  50% { opacity: 1; }
+  100% { opacity: 0.98; }
 }
 
-.lane-scroll-left {
-  animation: laneScrollLeft 48s linear infinite;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
-
-.lane-scroll-right {
-  animation: laneScrollRight 48s linear infinite;
+::-webkit-scrollbar-track {
+  background: #050510;
+}
+::-webkit-scrollbar-thumb {
+  background: #ff007f;
+  border-radius: 0px;
+  border: 1px solid #00f0ff;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00f0ff;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-retro-float {
-    animation: none;
-  }
-
-  .lane-scroll-left,
-  .lane-scroll-right {
+  .animate-retro-float,
+  .animate-pacman-chomp,
+  .animate-pulse-glow,
+  .crt-flicker {
     animation: none;
   }
 }
